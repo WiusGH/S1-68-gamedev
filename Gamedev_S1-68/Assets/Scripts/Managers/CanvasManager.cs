@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+   public void ButtonNexDay()
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
