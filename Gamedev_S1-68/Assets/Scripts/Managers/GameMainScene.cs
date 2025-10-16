@@ -25,5 +25,23 @@ public class GameMainScene : DekuSingletonBase<GameMainScene>
         }
     }
 
+     private GameManager p_gameManager;
+    public static GameManager GameManager => Instance.p_gameManager ? Instance.p_gameManager : Instance.GetGameManager();
+    private GameManager GetGameManager()
+    { 
+        GameManager gameManager = FindObjectOfType<GameManager>();
+
+        if (gameManager) 
+        {
+            Instance.p_gameManager = gameManager;
+            return Instance.p_gameManager;
+        }
+        else 
+        {
+            Debug.LogError("No se encontro el objeto GameManager en la escena");
+            return null;
+        }
+    }
+
     #endregion
 }

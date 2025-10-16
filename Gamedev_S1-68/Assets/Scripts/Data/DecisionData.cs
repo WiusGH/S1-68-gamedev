@@ -2,10 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DecisionData : MonoBehaviour
+[System.Serializable]
+public class DecisionData
 {
-    [SubHeader("Decision changes")]
-    [SerializeField] internal int Current_money_ = 1000;
-    [SerializeField] internal int Current_debt_ = 0;
-    [SerializeField] internal int Current_moral_ = 50;
+    [SerializeField] internal DecisionOption DecisionOption;
+}
+
+[System.Serializable]
+public class DecisionOption
+{
+    public DecisionType typeDecision;
+
+    public int cambioDinero;
+    public int cambioMoral;
+    public int cambioDeuda;
+}
+
+public enum DecisionType
+{
+    Aceptar,
+    Rechazar,
+    Negociar,
+    Ignorar,
+    Otro 
 }
