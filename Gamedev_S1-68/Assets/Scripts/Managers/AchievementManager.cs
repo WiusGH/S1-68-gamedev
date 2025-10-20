@@ -1,17 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class AchievementManager : MonoBehaviour
 {
   public static AchievementManager Instance { get; private set; }
-
   private AchievementData achievementData;
 
-  // public List<AchievementEntry> GetAllAchievements() => achievementData.achievements;
-  // public List<AchievementEntry> GetUnlockedAchievements() => achievementData.achievements.FindAll(a => a.unlocked);
-  // public List<AchievementEntry> GetLockedAchievements() => achievementData.achievements.FindAll(a => !a.unlocked);
+  [Header("References")]
+  [SerializeField] private AchievementDatabase database; // Para visualizar en el inspector
+
 
   private void Awake()
   {
@@ -26,38 +24,30 @@ public class AchievementManager : MonoBehaviour
       return;
     }
 
+    if (database == null)
+    {
+      Debug.LogError("[AchievementManager] AchievementDatabase no asignado.");
+      return;
+    }
+
     LoadAchievements();
   }
-
   // Para cargar los logros existente
   private void LoadAchievements()
   {
     achievementData = AchievementSaveSystem.Load();
 
-    InitializeDefaultAchievements();
+    foreach (var def in database.achievements)
+    {
+      if (!achievementData.achievements.Any(a => a.id == def.id))
+      {
+        achievementData.achievements.Add(new AchievementEntry(def.id));
+      }
+    }
 
     AchievementSaveSystem.Save(achievementData);
 
     Debug.Log($"[AchievementManager] {achievementData.achievements.Count} logros cargados.");
-  }
-
-  // Para agregar logro por defecto
-  private void InitializeDefaultAchievements()
-  {
-    AddAchievementIfNotExists(new AchievementEntry(
-        "FirstLogIn",
-        "First Log In",
-        "Log in to the game for the first time.",
-        "Icons/first_login",
-        10
-    ));
-  }
-
-  // Para agregar un logro nuevo siempre y cuando este ya no exista
-  private void AddAchievementIfNotExists(AchievementEntry entry)
-  {
-    if (!achievementData.achievements.Any(a => a.id == entry.id))
-      achievementData.achievements.Add(entry);
   }
 
   public void SaveAchievements()
@@ -76,7 +66,6 @@ public class AchievementManager : MonoBehaviour
   public void UnlockAchievement(string id)
   {
     var achievement = achievementData.achievements.Find(a => a.id == id);
-
     if (achievement == null)
     {
       Debug.LogWarning($"[AchievementManager] No se encontró el logro con ID '{id}'.");
@@ -91,16 +80,23 @@ public class AchievementManager : MonoBehaviour
 
     achievement.unlocked = true;
     achievement.unlockDate = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
-
     AchievementSaveSystem.Save(achievementData);
 
-    Debug.Log($"🏆 Logro desbloqueado: {achievement.title}");
+    var def = database.achievements.Find(d => d.id == id);
+    Debug.Log(def != null
+            ? $"🏆 Logro desbloqueado: {def.title}"
+            : $"🏆 Logro desbloqueado: {id} (definition not found)");
   }
 
   // Para verificar si el logro ya fue desbloqueado
-  public bool HasAchievement(string achievementId)
+  public bool HasAchievement(string id)
   {
-    return achievementData.achievements.Any(a => a.id == achievementId);
+    return achievementData.achievements.Any(a => a.id == id && a.unlocked);
+  }
+
+  public AchievementDefinition GetDefinition(string id)
+  {
+    return database.achievements.FirstOrDefault(a => a.id == id);
   }
 
   // Para guardar al salir de la aplicación
@@ -108,5 +104,4 @@ public class AchievementManager : MonoBehaviour
   {
     SaveAchievements();
   }
-
 }
