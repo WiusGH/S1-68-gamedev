@@ -48,12 +48,12 @@ El juego busca demostrar que **comprender la economía personal es una forma de 
 ## Estado del proyecto
 
 **Etapa actual:**  
-> Prototipo funcional – *Semana 1: Supervivencia*  
+> Prototipo funcional – *Mes 1: Supervivencia*  
 
 **Incluye:**
-- 3 eventos narrativos interactivos.  
-- 2 días de gestión económica.  
-- 3 cartas de bonificación o penalización.  
+- 12 eventos narrativos interactivos.  
+- 30 días de gestión económica.  
+- 4 cartas usables/coleccionables.  
 - 2 lecciones del mentor financiero.  
 - Sistema de variables (Dinero, Deuda, Moral) con interfaz funcional.  
 
