@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 598ea81555ae254469509490682906d0
+guid: 0d4a072b448a91d4ca029f149a651e92
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -49,7 +49,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 131, y: 156, z: 166, w: 149}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -110,43 +110,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: a simple rectangular_0
+      name: a long, horizontal b_0
       rect:
         serializedVersion: 2
-        x: 98
-        y: 121
-        width: 1311
-        height: 783
+        x: 32
+        y: 299
+        width: 959
+        height: 371
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 21, y: 16, z: 20, w: 19}
+      border: {x: 158, y: 17, z: 183, w: 19}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: feaa39f0264f6ae419b2827f130edac6
-      internalID: -1763797731
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: a simple rectangular_1
-      rect:
-        serializedVersion: 2
-        x: 98
-        y: 885
-        width: 1311
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 17be65c736effca41b1fcdc179131df9
-      internalID: -664368868
+      spriteID: 84a27b5716a69f8449f6ea4d91ef9473
+      internalID: 1172440628
       vertices: []
       indices: 
       edges: []
@@ -154,16 +133,15 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: a474caa5ca56b6248b7fe096be488006
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      a simple rectangular_0: -1763797731
-      a simple rectangular_1: -664368868
+      a long, horizontal b_0: 1172440628
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
