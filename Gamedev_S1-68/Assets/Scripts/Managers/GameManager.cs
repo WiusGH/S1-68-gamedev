@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
         CurrentWeek = InitialWeek;
         CurrentMonth = InitialMonth;
 
-        if(debugMode) Debug.Log("Jugador inicializado correctamente.");
+        if (debugMode) Debug.Log("Jugador inicializado correctamente.");
     }
 
     private void GenerateEventsWeek()
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
             availableEvents = new List<EventData>(baseEvents);
         }
 
-        List<int> diasDisponibles = new List<int>() {2, 3, 4, 5, 6, 7 };
+        List<int> diasDisponibles = new List<int>() { 2, 3, 4, 5, 6, 7 };
         List<EventData> eventosDisponibles = new List<EventData>(availableEvents);
 
         for (int i = 0; i < EventsPerWeek; i++)

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
+  m_Name: El mentor te ofrece una charla gratuita
+  m_EditorClassIdentifier: 
+  descripcion: "El mentor te invita a aprender sobre \u201Cc\xF3mo dividir tu presupuesto
+    mensual\u201D."
+  decisiones:
+  - DecisionOption:
+      typeDecision: 0
+      titulo: Asistir a la charla
+      cambioDinero: 0
+      cambioDeuda: 0
+      cambioMoral: 10
+  - DecisionOption:
+      typeDecision: 1
+      titulo: "Rechazarla, est\xE1s ocupado"
+      cambioDinero: 0
+      cambioDeuda: 0
+      cambioMoral: -5
