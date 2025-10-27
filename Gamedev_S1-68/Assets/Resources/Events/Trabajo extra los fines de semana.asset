@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
   m_Name: Trabajo extra los fines de semana
   m_EditorClassIdentifier: 
-  descripcion: 
+  descripcion: "Tu jefe ofrece un turno extra por 150 cr\xE9ditos."
   decisiones:
   - DecisionOption:
       typeDecision: 0
       titulo: Aceptar el turno
       cambioDinero: 150
-      cambioDeuda: 0
       cambioMoral: -5
+      cambioDeuda: 0
   - DecisionOption:
       typeDecision: 1
       titulo: Rechazar la propuesta
       cambioDinero: 0
-      cambioDeuda: 0
       cambioMoral: 5
+      cambioDeuda: 0

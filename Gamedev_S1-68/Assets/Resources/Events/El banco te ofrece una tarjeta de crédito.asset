@@ -12,23 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
   m_Name: "El banco te ofrece una tarjeta de cr\xE9dito"
   m_EditorClassIdentifier: 
-  descripcion: 
+  descripcion: "El Gobernador anuncia un programa de tarjetas de cr\xE9dito con \u201Cbeneficios
+    para trabajadores\u201D."
   decisiones:
   - DecisionOption:
       typeDecision: 0
       titulo: Aceptar
       cambioDinero: 200
-      cambioDeuda: 300
       cambioMoral: 5
+      cambioDeuda: 300
   - DecisionOption:
       typeDecision: 1
       titulo: Rechazar
       cambioDinero: 0
-      cambioDeuda: 0
       cambioMoral: 10
+      cambioDeuda: 0
   - DecisionOption:
       typeDecision: 2
       titulo: Aceptar y pagar todo en plazo
       cambioDinero: 200
-      cambioDeuda: 100
       cambioMoral: 0
+      cambioDeuda: 100

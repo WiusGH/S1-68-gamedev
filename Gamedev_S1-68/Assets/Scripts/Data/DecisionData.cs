@@ -16,9 +16,8 @@ public class DecisionOption
     public string titulo;
 
     public int cambioDinero;
-    public int cambioDeuda;
     public int cambioMoral;
-
+    public int cambioDeuda;
 }
 
 public enum DecisionType

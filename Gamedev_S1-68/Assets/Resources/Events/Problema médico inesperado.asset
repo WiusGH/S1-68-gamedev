@@ -12,23 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
   m_Name: "Problema m\xE9dico inesperado"
   m_EditorClassIdentifier: 
-  descripcion: 
+  descripcion: "Te enfermas y debes decidir si ir al m\xE9dico o automedicarte."
   decisiones:
   - DecisionOption:
       typeDecision: 0
       titulo: "Ir al m\xE9dico"
       cambioDinero: -200
-      cambioDeuda: 0
       cambioMoral: 10
+      cambioDeuda: 0
   - DecisionOption:
       typeDecision: 1
       titulo: Automedicarte
       cambioDinero: -50
-      cambioDeuda: 0
       cambioMoral: -5
+      cambioDeuda: 0
   - DecisionOption:
       typeDecision: 2
       titulo: "Ignorar los s\xEDntomas"
       cambioDinero: 0
-      cambioDeuda: 0
       cambioMoral: -15
+      cambioDeuda: 0

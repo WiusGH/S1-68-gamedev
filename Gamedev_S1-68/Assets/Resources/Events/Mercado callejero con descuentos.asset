@@ -12,23 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
   m_Name: Mercado callejero con descuentos
   m_EditorClassIdentifier: 
-  descripcion: 
+  descripcion: "Encuentras productos b\xE1sicos a buen precio, pero sin garant\xEDa."
   decisiones:
   - DecisionOption:
       typeDecision: 0
       titulo: Comprar lo justo
       cambioDinero: -100
-      cambioDeuda: 0
       cambioMoral: 5
+      cambioDeuda: 0
   - DecisionOption:
       typeDecision: 1
       titulo: Comprar mucho
       cambioDinero: -300
-      cambioDeuda: 0
       cambioMoral: -10
+      cambioDeuda: 0
   - DecisionOption:
       typeDecision: 2
       titulo: No comprar nada
       cambioDinero: 0
-      cambioDeuda: 0
       cambioMoral: 0
+      cambioDeuda: 0

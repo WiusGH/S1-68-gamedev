@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
   m_Name: Fin de semana, pero la deuda crece
   m_EditorClassIdentifier: 
-  descripcion: 
+  descripcion: "El banco te cobra autom\xE1ticamente intereses de 50 cr\xE9ditos
+    por la deuda que acarreas. "
   decisiones:
   - DecisionOption:
       typeDecision: 0
       titulo: "Pagar el inter\xE9s hoy"
       cambioDinero: -50
-      cambioDeuda: -50
       cambioMoral: 0
+      cambioDeuda: -50
   - DecisionOption:
       typeDecision: 1
       titulo: Ignorar el cobro, ahora no puedo pagarlo
       cambioDinero: 0
-      cambioDeuda: 100
       cambioMoral: -5
+      cambioDeuda: 100

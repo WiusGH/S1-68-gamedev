@@ -12,24 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
   m_Name: Comida o transporte
   m_EditorClassIdentifier: 
-  descripcion: "Recibes la factura de luz y agua: en total son 200 cr\xE9ditos. Si
-    no pagas ahora, podr\xEDan aplicarse recargos en la siguiente factura."
+  descripcion: "Tu heladera est\xE1 vac\xEDa, pero tambi\xE9n necesitas dinero para
+    ir al trabajo. "
   decisiones:
   - DecisionOption:
       typeDecision: 0
       titulo: Comprar comida
       cambioDinero: -150
-      cambioDeuda: 0
       cambioMoral: 10
+      cambioDeuda: 0
   - DecisionOption:
       typeDecision: 2
       titulo: Ahorrar y caminar
-      cambioDinero: 0
-      cambioDeuda: 0
+      cambioDinero: -50
       cambioMoral: -5
+      cambioDeuda: 0
   - DecisionOption:
       typeDecision: 1
       titulo: Pedir dinero prestado
-      cambioDinero: 100
+      cambioDinero: 0
+      cambioMoral: -10
       cambioDeuda: 150
-      cambioMoral: 5

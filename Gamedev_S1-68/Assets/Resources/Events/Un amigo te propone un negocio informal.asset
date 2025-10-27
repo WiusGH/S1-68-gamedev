@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
   m_Name: Un amigo te propone un negocio informal
   m_EditorClassIdentifier: 
-  descripcion: 
+  descripcion: "Un amigo te ofrece invertir 200 cr\xE9ditos para \u201Cmultiplicarlos\u201D
+    en una semana."
   decisiones:
   - DecisionOption:
       typeDecision: 0
       titulo: Aceptar
       cambioDinero: -200
-      cambioDeuda: 0
       cambioMoral: 5
+      cambioDeuda: 0
   - DecisionOption:
-      typeDecision: 0
+      typeDecision: 1
       titulo: Rechazar
       cambioDinero: 0
-      cambioDeuda: 0
       cambioMoral: 5
+      cambioDeuda: 0

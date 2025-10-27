@@ -12,23 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
   m_Name: El mentor te pregunta sobre tus metas
   m_EditorClassIdentifier: 
-  descripcion: 
+  descripcion: El mentor te invita a definir un objetivo financiero para el mes.
   decisiones:
   - DecisionOption:
       typeDecision: 0
       titulo: "Ahorrar 200 cr\xE9ditos"
       cambioDinero: 0
-      cambioDeuda: 0
       cambioMoral: 10
+      cambioDeuda: 0
   - DecisionOption:
       typeDecision: 1
       titulo: Pagar toda la deuda
       cambioDinero: -500
-      cambioDeuda: -500
       cambioMoral: 0
+      cambioDeuda: -500
   - DecisionOption:
       typeDecision: 2
       titulo: "No fijar metas a\xFAn"
       cambioDinero: 0
-      cambioDeuda: 0
       cambioMoral: -5
+      cambioDeuda: 0
