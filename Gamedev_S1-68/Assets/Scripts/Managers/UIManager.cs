@@ -8,33 +8,33 @@ public class UIManager : MonoBehaviour
   public GameManager gameManager;
 
   [Header("Valores")]
-  public TextMeshProUGUI dineroText;
-  public TextMeshProUGUI moralText;
-  public TextMeshProUGUI deudaText;
-  public TextMeshProUGUI eventDescriptionText;
+  [SerializeField] internal TextMeshProUGUI dineroText;
+  [SerializeField] internal TextMeshProUGUI moralText;
+  [SerializeField] internal TextMeshProUGUI deudaText;
+  [SerializeField] internal TextMeshProUGUI eventDescriptionText;
 
   [Header("Feedback Panel")]
-  public GameObject feedbackPanel;
-  public TextMeshProUGUI feedbackText;
-  public TextMeshProUGUI feedbackStatMoney;
-  public TextMeshProUGUI feedbackStatMorale;
-  public TextMeshProUGUI feedbackStatDebt;
-  public Button continueButton;
+  [SerializeField] internal GameObject feedbackPanel;
+  [SerializeField] internal TextMeshProUGUI feedbackText;
+  [SerializeField] internal TextMeshProUGUI feedbackStatMoney;
+  [SerializeField] internal TextMeshProUGUI feedbackStatMorale;
+  [SerializeField] internal TextMeshProUGUI feedbackStatDebt;
+  [SerializeField] internal Button continueButton;
 
   [Header("Botones")]
-  public Button aceptarButton;
-  public Button rechazarButton;
-  public Button negociarButton;
+  [SerializeField] internal Button aceptarButton;
+  [SerializeField] internal Button rechazarButton;
+  [SerializeField] internal Button negociarButton;
 
   [Header("Panels")]
-  public GameObject eventPanel;
+  [SerializeField] internal GameObject eventPanel;
 
   private EventData currentEvent;
-  public GameObject gameOverPanel;
-  public TextMeshProUGUI gameOverText;
+  [SerializeField] internal GameObject gameOverPanel;
+  [SerializeField] internal TextMeshProUGUI gameOverText;
 
   [Header("Game Over Controls")]
-  public Button restartButton;
+  [SerializeField] internal Button restartButton;
 
   void Start()
   {
