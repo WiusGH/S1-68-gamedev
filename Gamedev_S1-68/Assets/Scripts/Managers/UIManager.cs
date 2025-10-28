@@ -13,6 +13,14 @@ public class UIManager : MonoBehaviour
   public TextMeshProUGUI deudaText;
   public TextMeshProUGUI eventDescriptionText;
 
+  [Header("Feedback Panel")]
+  public GameObject feedbackPanel;
+  public TextMeshProUGUI feedbackText;
+  public TextMeshProUGUI feedbackStatMoney;
+  public TextMeshProUGUI feedbackStatMorale;
+  public TextMeshProUGUI feedbackStatDebt;
+  public Button continueButton;
+
   [Header("Botones")]
   public Button aceptarButton;
   public Button rechazarButton;
@@ -36,7 +44,9 @@ public class UIManager : MonoBehaviour
   public void InitUI()
   {
     UpdateStats();
+    HideGameOverPanel();
     HideEventPanel();
+    HideFeedbackPanel();
     ShowNoEventMessage();
   }
 
@@ -73,6 +83,7 @@ public class UIManager : MonoBehaviour
         DisableAllDecisionButtons();
         gameManager.ApplyDecision(decision.DecisionOption);
         UpdateStats();
+        ShowFeedback(decision.DecisionOption);
       });
     }
     else
@@ -95,10 +106,25 @@ public class UIManager : MonoBehaviour
     eventPanel.SetActive(false);
   }
 
+  public void HideFeedbackPanel()
+  {
+    feedbackPanel.SetActive(false);
+  }
+
+  public void HideGameOverPanel()
+  {
+    gameOverPanel.SetActive(false);
+  }
+
   // Muestra el panel de eventos
   public void ShowEventPanel()
   {
     eventPanel.SetActive(true);
+  }
+
+  public void ShowGameOverPanel()
+  {
+    gameOverPanel.SetActive(true);
   }
 
   // Muestra el mensaje de "No hay eventos el día de hoy."
@@ -107,6 +133,33 @@ public class UIManager : MonoBehaviour
     Debug.Log("No hay eventos el día de hoy.");
     eventDescriptionText.text = "No hay eventos el día de hoy.";
   }
+
+  public void ShowFeedback(DecisionOption decision)
+  {
+    feedbackPanel.SetActive(true);
+
+    feedbackText.text = decision.feedback;
+
+    feedbackStatMoney.text = $"${FormatChange(decision.cambioDinero)}";
+    feedbackStatMorale.text = FormatChange(decision.cambioMoral);
+    feedbackStatDebt.text = FormatChange(decision.cambioDeuda);
+
+    continueButton.onClick.RemoveAllListeners();
+    continueButton.onClick.AddListener(() =>
+    {
+      feedbackPanel.SetActive(false);
+      HideEventPanel();
+      gameManager.canProceedToNextDay = true;
+    });
+  }
+
+  private string FormatChange(int value)
+  {
+    if (value > 0) return $"+{value}";
+    if (value < 0) return $"{value}";
+    return "0";
+  }
+
 
   // Deshabilita los botones de decision
   private void DisableAllDecisionButtons()
@@ -128,6 +181,7 @@ public class UIManager : MonoBehaviour
   public void ShowGameOver(string reason)
   {
     HideEventPanel();
+    ShowGameOverPanel();
     gameOverPanel.SetActive(true);
     gameOverText.text = $"Juego Terminado\n{reason}";
 

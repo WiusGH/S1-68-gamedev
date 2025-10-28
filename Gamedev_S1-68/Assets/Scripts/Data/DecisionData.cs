@@ -18,6 +18,8 @@ public class DecisionOption
     public int cambioDinero;
     public int cambioMoral;
     public int cambioDeuda;
+    [TextArea(2, 5)]
+    public string feedback;
 }
 
 public enum DecisionType
