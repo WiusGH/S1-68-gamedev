@@ -18,11 +18,14 @@ MonoBehaviour:
       typeDecision: 0
       titulo: Aceptar
       cambioDinero: 300
-      cambioDeuda: 100
       cambioMoral: -10
+      cambioDeuda: 100
+      feedback: "No todo ingreso es positivo. \xA1Ten cuidado la pr\xF3xima vez!"
   - DecisionOption:
       typeDecision: 1
       titulo: Rechazar
       cambioDinero: 0
-      cambioDeuda: 0
       cambioMoral: 10
+      cambioDeuda: 0
+      feedback: "La integridad tambi\xE9n paga, mantener independencia es m\xE1s
+        valioso."

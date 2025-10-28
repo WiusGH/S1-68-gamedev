@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
-  m_Name: NuevoEvento
+  m_Name: Fin de mes balance general
   m_EditorClassIdentifier: 
   descripcion: Llega el cierre del mes. El mentor analiza tus decisiones.
   decisiones:
@@ -20,9 +20,11 @@ MonoBehaviour:
       cambioDinero: 0
       cambioMoral: 10
       cambioDeuda: 0
+      feedback: Aprender de tus errores fortalece tu futuro.
   - DecisionOption:
       typeDecision: 1
       titulo: Avanzar sin revisar
       cambioDinero: 0
       cambioMoral: 0
       cambioDeuda: 0
+      feedback: Ignorar el balance evita el aprendizaje.

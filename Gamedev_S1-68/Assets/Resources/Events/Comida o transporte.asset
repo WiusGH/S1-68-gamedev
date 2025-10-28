@@ -21,15 +21,19 @@ MonoBehaviour:
       cambioDinero: -150
       cambioMoral: 10
       cambioDeuda: 0
+      feedback: Alimentarte mejora tu moral, pero reduce tus ahorros.
   - DecisionOption:
       typeDecision: 2
       titulo: Ahorrar y caminar
       cambioDinero: -50
       cambioMoral: -5
       cambioDeuda: 0
+      feedback: "A veces sacrificarse ayuda al futuro. No te preocupes, vendr\xE1n
+        d\xEDas mejores."
   - DecisionOption:
       typeDecision: 1
       titulo: Pedir dinero prestado
       cambioDinero: 0
       cambioMoral: -10
       cambioDeuda: 150
+      feedback: Pedir ayuda aumenta la deuda aunque da alivio temporal.

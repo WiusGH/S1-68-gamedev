@@ -20,15 +20,18 @@ MonoBehaviour:
       cambioDinero: -100
       cambioMoral: 5
       cambioDeuda: 0
+      feedback: Evaluar calidad-precio es parte del ahorro.
   - DecisionOption:
       typeDecision: 1
       titulo: Comprar mucho
       cambioDinero: -300
       cambioMoral: -10
       cambioDeuda: 0
+      feedback: Gastar sin control puede romper el equilibrio.
   - DecisionOption:
       typeDecision: 2
       titulo: No comprar nada
       cambioDinero: 0
       cambioMoral: 0
       cambioDeuda: 0
+      feedback: "Mantener el control es se\xF1al de madurez."

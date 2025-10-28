@@ -19,17 +19,22 @@ MonoBehaviour:
       typeDecision: 0
       titulo: Pagar de inmediato
       cambioDinero: -200
-      cambioDeuda: 0
       cambioMoral: 5
+      cambioDeuda: 0
+      feedback: "No retrasarte con los pagos b\xE1sicos evita recargos a futuro y
+        mantiene tu estabilidad econ\xF3mica. \xA1Sabia decisi\xF3n! "
   - DecisionOption:
       typeDecision: 1
       titulo: Esperar hasta el final de la semana
       cambioDinero: 0
-      cambioDeuda: 150
       cambioMoral: 0
+      cambioDeuda: 150
+      feedback: 'Retrasarse con los pagos puede ser un arma de doble filo. Te mantiene
+        con dinero ahora pero a futuro puede causar intereses. '
   - DecisionOption:
       typeDecision: 2
       titulo: Ignorar la factura
       cambioDinero: 0
-      cambioDeuda: 300
       cambioMoral: -10
+      cambioDeuda: 300
+      feedback: Ignorar tus responsabilidades empeora tus finanzas.

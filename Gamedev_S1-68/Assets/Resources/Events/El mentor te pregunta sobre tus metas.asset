@@ -20,15 +20,18 @@ MonoBehaviour:
       cambioDinero: 0
       cambioMoral: 10
       cambioDeuda: 0
+      feedback: Los objetivos claros mejoran la disciplina.
   - DecisionOption:
       typeDecision: 1
       titulo: Pagar toda la deuda
       cambioDinero: -500
       cambioMoral: 0
       cambioDeuda: -500
+      feedback: Sacrificio a corto plazo, libertad a largo plazo.
   - DecisionOption:
       typeDecision: 2
       titulo: "No fijar metas a\xFAn"
       cambioDinero: 0
       cambioMoral: -5
       cambioDeuda: 0
+      feedback: No tener rumbo financiero genera incertidumbre.

@@ -21,9 +21,11 @@ MonoBehaviour:
       cambioDinero: -200
       cambioMoral: 5
       cambioDeuda: 0
+      feedback: "No toda inversi\xF3n es segura; riesgo y ganancia van juntos."
   - DecisionOption:
       typeDecision: 1
       titulo: Rechazar
       cambioDinero: 0
       cambioMoral: 5
       cambioDeuda: 0
+      feedback: "+5\r\nPrudencia y estabilidad valen m\xE1s que promesas r\xE1pidas.\r\n\r\n"

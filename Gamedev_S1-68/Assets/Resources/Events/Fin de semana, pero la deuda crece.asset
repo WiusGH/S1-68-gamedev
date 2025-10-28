@@ -21,9 +21,11 @@ MonoBehaviour:
       cambioDinero: -50
       cambioMoral: 0
       cambioDeuda: -50
+      feedback: Atender la deuda evita que crezca.
   - DecisionOption:
       typeDecision: 1
       titulo: Ignorar el cobro, ahora no puedo pagarlo
       cambioDinero: 0
       cambioMoral: -5
       cambioDeuda: 100
+      feedback: Ignorar los intereses los multiplica.

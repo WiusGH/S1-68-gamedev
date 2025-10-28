@@ -20,9 +20,11 @@ MonoBehaviour:
       cambioDinero: 150
       cambioMoral: -5
       cambioDeuda: 0
+      feedback: "Trabajar m\xE1s aumenta ingresos pero desgasta f\xEDsica y mentalmente."
   - DecisionOption:
       typeDecision: 1
       titulo: Rechazar la propuesta
       cambioDinero: 0
       cambioMoral: 5
       cambioDeuda: 0
+      feedback: A veces descansar es invertir en ti mismo.

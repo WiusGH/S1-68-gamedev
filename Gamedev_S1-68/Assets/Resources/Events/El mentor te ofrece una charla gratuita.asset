@@ -19,11 +19,13 @@ MonoBehaviour:
       typeDecision: 0
       titulo: Asistir a la charla
       cambioDinero: 0
-      cambioDeuda: 0
       cambioMoral: 10
+      cambioDeuda: 0
+      feedback: Aprender mejora tus decisiones futuras.
   - DecisionOption:
       typeDecision: 1
       titulo: "Rechazarla, est\xE1s ocupado"
       cambioDinero: 0
-      cambioDeuda: 0
       cambioMoral: -5
+      cambioDeuda: 0
+      feedback: Ignorar el conocimiento puede costarte caro.

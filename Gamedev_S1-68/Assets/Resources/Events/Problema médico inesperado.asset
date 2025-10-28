@@ -20,15 +20,18 @@ MonoBehaviour:
       cambioDinero: -200
       cambioMoral: 10
       cambioDeuda: 0
+      feedback: "Cuidar de tu salud es la mejor inversi\xF3n. "
   - DecisionOption:
       typeDecision: 1
       titulo: Automedicarte
       cambioDinero: -50
       cambioMoral: -5
       cambioDeuda: 0
+      feedback: "Ahorrar en exceso puede salir caro en alg\xFAn momento\u2026 "
   - DecisionOption:
       typeDecision: 2
       titulo: "Ignorar los s\xEDntomas"
       cambioDinero: 0
       cambioMoral: -15
       cambioDeuda: 0
+      feedback: Ignorar los problemas a la larga solo los agrava.

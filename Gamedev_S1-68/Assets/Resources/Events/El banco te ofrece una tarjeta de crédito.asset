@@ -21,15 +21,18 @@ MonoBehaviour:
       cambioDinero: 200
       cambioMoral: 5
       cambioDeuda: 300
+      feedback: "El dinero f\xE1cil puede ser una trampa."
   - DecisionOption:
       typeDecision: 1
       titulo: Rechazar
       cambioDinero: 0
       cambioMoral: 10
       cambioDeuda: 0
+      feedback: Evitar tentaciones mantiene la estabilidad.
   - DecisionOption:
       typeDecision: 2
       titulo: Aceptar y pagar todo en plazo
       cambioDinero: 200
       cambioMoral: 0
       cambioDeuda: 100
+      feedback: "Un uso responsable del cr\xE9dito puede ser \xFAtil."
