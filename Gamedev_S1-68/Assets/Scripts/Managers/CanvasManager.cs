@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-   public void ButtonNexDay()
+    public void ButtonNexDay()
     {
 
     }

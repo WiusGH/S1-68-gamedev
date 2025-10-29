@@ -10,23 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
-  m_Name: Evento aleatorio 5
+  m_Name: Trabajo extra los fines de semana
   m_EditorClassIdentifier: 
-  descripcion: "Asesor: \u201CHay rumores de corrupci\xF3n. Si los ignoras, nadie
-    te culpar\xE1.\u201D"
+  descripcion: "Tu jefe ofrece un turno extra por 150 cr\xE9ditos."
   decisiones:
   - DecisionOption:
       typeDecision: 0
-      cambioDinero: 200
-      cambioMoral: -300
+      titulo: Aceptar el turno
+      cambioDinero: 150
+      cambioMoral: -5
       cambioDeuda: 0
+      feedback: "Trabajar m\xE1s aumenta ingresos pero desgasta f\xEDsica y mentalmente."
   - DecisionOption:
       typeDecision: 1
-      cambioDinero: -100
-      cambioMoral: 200
+      titulo: Rechazar la propuesta
+      cambioDinero: 0
+      cambioMoral: 5
       cambioDeuda: 0
-  - DecisionOption:
-      typeDecision: 2
-      cambioDinero: 50
-      cambioMoral: -50
-      cambioDeuda: 2
+      feedback: A veces descansar es invertir en ti mismo.

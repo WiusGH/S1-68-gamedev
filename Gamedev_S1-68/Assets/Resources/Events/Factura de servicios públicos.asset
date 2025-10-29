@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
+  m_Name: "Factura de servicios p\xFAblicos"
+  m_EditorClassIdentifier: 
+  descripcion: "Recibes la factura de luz y agua: en total son 200 cr\xE9ditos. Si
+    no pagas ahora, podr\xEDan aplicarse recargos en la siguiente factura."
+  decisiones:
+  - DecisionOption:
+      typeDecision: 0
+      titulo: Pagar de inmediato
+      cambioDinero: -200
+      cambioMoral: 5
+      cambioDeuda: 0
+      feedback: "No retrasarte con los pagos b\xE1sicos evita recargos a futuro y
+        mantiene tu estabilidad econ\xF3mica. \xA1Sabia decisi\xF3n! "
+  - DecisionOption:
+      typeDecision: 1
+      titulo: Esperar hasta el final de la semana
+      cambioDinero: 0
+      cambioMoral: 0
+      cambioDeuda: 150
+      feedback: 'Retrasarse con los pagos puede ser un arma de doble filo. Te mantiene
+        con dinero ahora pero a futuro puede causar intereses. '
+  - DecisionOption:
+      typeDecision: 2
+      titulo: Ignorar la factura
+      cambioDinero: 0
+      cambioMoral: -10
+      cambioDeuda: 300
+      feedback: Ignorar tus responsabilidades empeora tus finanzas.

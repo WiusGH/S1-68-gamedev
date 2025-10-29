@@ -13,9 +13,13 @@ public class DecisionOption
 {
     public DecisionType typeDecision;
 
+    public string titulo;
+
     public int cambioDinero;
     public int cambioMoral;
     public int cambioDeuda;
+    [TextArea(2, 5)]
+    public string feedback;
 }
 
 public enum DecisionType
@@ -24,5 +28,5 @@ public enum DecisionType
     Rechazar,
     Negociar,
     Ignorar,
-    Otro 
+    Otro
 }

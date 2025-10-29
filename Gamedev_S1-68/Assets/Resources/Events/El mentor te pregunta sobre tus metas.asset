@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
+  m_Name: El mentor te pregunta sobre tus metas
+  m_EditorClassIdentifier: 
+  descripcion: El mentor te invita a definir un objetivo financiero para el mes.
+  decisiones:
+  - DecisionOption:
+      typeDecision: 0
+      titulo: "Ahorrar 200 cr\xE9ditos"
+      cambioDinero: 0
+      cambioMoral: 10
+      cambioDeuda: 0
+      feedback: Los objetivos claros mejoran la disciplina.
+  - DecisionOption:
+      typeDecision: 1
+      titulo: Pagar toda la deuda
+      cambioDinero: -500
+      cambioMoral: 0
+      cambioDeuda: -500
+      feedback: Sacrificio a corto plazo, libertad a largo plazo.
+  - DecisionOption:
+      typeDecision: 2
+      titulo: "No fijar metas a\xFAn"
+      cambioDinero: 0
+      cambioMoral: -5
+      cambioDeuda: 0
+      feedback: No tener rumbo financiero genera incertidumbre.

@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
-  m_Name: Evento aleatorio 6
+  m_Name: El Gobernador ofrece un subsidio especial
   m_EditorClassIdentifier: 
-  descripcion: "Ciudadano: \u201CPodr\xEDas donar fondos para el hospital local.\u201D"
+  descripcion: "Una ayuda econ\xF3mica condicionada a tu lealtad pol\xEDtica."
   decisiones:
   - DecisionOption:
       typeDecision: 0
-      cambioDinero: -500
-      cambioMoral: 300
-      cambioDeuda: 0
+      titulo: Aceptar
+      cambioDinero: 300
+      cambioMoral: -10
+      cambioDeuda: 100
+      feedback: "No todo ingreso es positivo. \xA1Ten cuidado la pr\xF3xima vez!"
   - DecisionOption:
       typeDecision: 1
-      cambioDinero: 200
-      cambioMoral: -150
+      titulo: Rechazar
+      cambioDinero: 0
+      cambioMoral: 10
       cambioDeuda: 0
-  - DecisionOption:
-      typeDecision: 2
-      cambioDinero: -250
-      cambioMoral: 100
-      cambioDeuda: 3
+      feedback: "La integridad tambi\xE9n paga, mantener independencia es m\xE1s
+        valioso."

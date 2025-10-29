@@ -10,23 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
-  m_Name: Evento aleatorio 1
+  m_Name: "Problema m\xE9dico inesperado"
   m_EditorClassIdentifier: 
-  descripcion: "Gobernador: \u201CPuedo ofrecerte un pr\xE9stamo r\xE1pido sin papeleo.
-    \xBFTe interesa?\u201D\r\n"
+  descripcion: "Te enfermas y debes decidir si ir al m\xE9dico o automedicarte."
   decisiones:
   - DecisionOption:
       typeDecision: 0
-      cambioDinero: 500
-      cambioMoral: 200
+      titulo: "Ir al m\xE9dico"
+      cambioDinero: -200
+      cambioMoral: 10
       cambioDeuda: 0
+      feedback: "Cuidar de tu salud es la mejor inversi\xF3n. "
   - DecisionOption:
       typeDecision: 1
-      cambioDinero: 10
-      cambioMoral: -50
+      titulo: Automedicarte
+      cambioDinero: -50
+      cambioMoral: -5
       cambioDeuda: 0
+      feedback: "Ahorrar en exceso puede salir caro en alg\xFAn momento\u2026 "
   - DecisionOption:
       typeDecision: 2
-      cambioDinero: 300
-      cambioMoral: 100
+      titulo: "Ignorar los s\xEDntomas"
+      cambioDinero: 0
+      cambioMoral: -15
       cambioDeuda: 0
+      feedback: Ignorar los problemas a la larga solo los agrava.

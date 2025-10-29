@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7cc6b59491dc14c8da03816585bacd, type: 3}
+  m_Name: Mercado callejero con descuentos
+  m_EditorClassIdentifier: 
+  descripcion: "Encuentras productos b\xE1sicos a buen precio, pero sin garant\xEDa."
+  decisiones:
+  - DecisionOption:
+      typeDecision: 0
+      titulo: Comprar lo justo
+      cambioDinero: -100
+      cambioMoral: 5
+      cambioDeuda: 0
+      feedback: Evaluar calidad-precio es parte del ahorro.
+  - DecisionOption:
+      typeDecision: 1
+      titulo: Comprar mucho
+      cambioDinero: -300
+      cambioMoral: -10
+      cambioDeuda: 0
+      feedback: Gastar sin control puede romper el equilibrio.
+  - DecisionOption:
+      typeDecision: 2
+      titulo: No comprar nada
+      cambioDinero: 0
+      cambioMoral: 0
+      cambioDeuda: 0
+      feedback: "Mantener el control es se\xF1al de madurez."
