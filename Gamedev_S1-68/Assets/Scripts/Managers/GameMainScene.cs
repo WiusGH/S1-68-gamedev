@@ -9,7 +9,7 @@ public class GameMainScene : DekuSingletonBase<GameMainScene>
 
     #region main References
     private CanvasManager p_canvasManager;
-    public static CanvasManager CanvasManager => Instance.p_canvasManager ? Instance.p_canvasManager : Instance.GetCanvasManager();
+    public static CanvasManager canvasManager => Instance.p_canvasManager ? Instance.p_canvasManager : Instance.GetCanvasManager();
     private CanvasManager GetCanvasManager()
     {
         CanvasManager canvasManager = FindObjectOfType<CanvasManager>();
@@ -20,13 +20,13 @@ public class GameMainScene : DekuSingletonBase<GameMainScene>
         }
         else
         {
-            Debug.LogError("No se encontró el objeto CanvasManager en la escena.");
+            Debug.LogError("No se encontró el objeto canvasManager en la escena.");
             return null;
         }
     }
 
      private GameManager p_gameManager;
-    public static GameManager GameManager => Instance.p_gameManager ? Instance.p_gameManager : Instance.GetGameManager();
+    public static GameManager gameManager => Instance.p_gameManager ? Instance.p_gameManager : Instance.GetGameManager();
     private GameManager GetGameManager()
     { 
         GameManager gameManager = FindObjectOfType<GameManager>();

@@ -4,6 +4,13 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum Neighborhoods
+{
+    Zone_1,
+    Zone_2,
+    Zone_3,
+}
+
 public class GameManager : MonoBehaviour
 {
     [SeparatorUp]
@@ -15,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] internal int InitialDebt = 0;
     [SerializeField] internal int InitialMoral = 50;
     [SerializeField] internal int InitialMonthlySalary = 50;
+    [SerializeField] internal Neighborhoods Startneighborhood = Neighborhoods.Zone_1;
 
     [SubHeader("Initial Game Data")]
     [SerializeField] internal int InitialWeek = 1;
@@ -24,17 +32,9 @@ public class GameManager : MonoBehaviour
     [HeaderBox("Current Dates", 0.6f, 0.2f, 1f, "Datos actuales inGame")]
     [SeparatorDown]
 
-    [SubHeader("Player Stats (Current Stats)")]
-    [SerializeField, ReadOnly] internal int CurrentMoney;
-    [SerializeField, ReadOnly] internal int CurrentDebt;
-    [SerializeField, ReadOnly] internal int CurrentMoral;
-    [SerializeField, ReadOnly] internal int CurrentMonthlySalary;
-    [SerializeField, ReadOnly] internal int CurrentWeek;
-    [SerializeField, ReadOnly] internal int CurrentMonth;
-
     [SubHeader("Time Control")]
-    [SerializeField, ReadOnly] internal int CurrentDay = 1;
-    [SerializeField] internal int DaysPerWeek = 7;
+    [SerializeField, ReadOnly] internal int currentDay = 1;
+    [SerializeField] internal int daysPerWeek = 7;
     [SerializeField] internal int EventsPerWeek = 3;
 
     [SubHeader("debugs")]
@@ -57,17 +57,22 @@ public class GameManager : MonoBehaviour
     [SerializeField, ReadOnly] internal bool canProceedToNextDay = true;
     [SerializeField, ReadOnly] internal bool isGameOver = false;
 
-    // Manager para el UI 
-    public UIManager uiManager;
+    [SubHeader("Progress in Game")]
+    [SerializeField, ReadOnly] internal int currentMoney;
+    [SerializeField, ReadOnly] internal int currentDebt;
+    [SerializeField, ReadOnly] internal int currentMoral;
+    [SerializeField, ReadOnly] internal int currentMonthlySalary;
+    [SerializeField, ReadOnly] internal int currentWeek;
+    [SerializeField, ReadOnly] internal int currentMonth;
+    [SerializeField, ReadOnly] internal int currentLesson = 0;
+
+    [SerializeField, ReadOnly] internal Neighborhoods Currentneighborhood;
 
     private void Start()
     {
-        //solo se llama si no hay datos creados (futuramente)
         InitPlayer();
 
-        // Crea una lista de eventos
         baseEvents = Resources.LoadAll<EventData>("Events");
-
         if (baseEvents.Length == 0)
         {
             Debug.LogWarning("No hay eventos en Resources/Events.");
@@ -75,55 +80,32 @@ public class GameManager : MonoBehaviour
         }
 
         GenerateEventsWeek();
-        ShowState();
 
-        uiManager.InitUI();
-
-        // Busca el UIManager en la escena
-        if (uiManager == null)
-        {
-            uiManager = FindObjectOfType<UIManager>();
-            if (uiManager == null)
-            {
-                Debug.LogError("UIManager no encontrado en la escena.");
-                return;
-            }
-        }
-    }
-
-    private void Update()
-    {
-        // Método temporal para avanzar al siguiente día
-        if (Input.GetKeyDown(KeyCode.Space) && canProceedToNextDay && !isGameOver)
-        {
-            NextDay();
-        }
+        GameMainScene.canvasManager.InitUI();
+        GameMainScene.canvasManager.UpdateTextsForTime(currentWeek, currentDay, daysPerWeek, currentLesson);
     }
 
     private void InitPlayer()
     {
-        CurrentMoney = InitialMoney;
-        CurrentDebt = InitialDebt;
-        CurrentMoral = InitialMoral;
-        CurrentMonthlySalary = InitialMonthlySalary;
-
-        CurrentWeek = InitialWeek;
-        CurrentMonth = InitialMonth;
+        currentMoney = InitialMoney;
+        currentDebt = InitialDebt;
+        currentMoral = InitialMoral;
+        currentMonthlySalary = InitialMonthlySalary;
+        currentWeek = InitialWeek;
+        currentMonth = InitialMonth;
+        Currentneighborhood = Startneighborhood;
 
         if (debugMode) Debug.Log("Jugador inicializado correctamente.");
     }
 
-    // Genera los eventos de la semana
     private void GenerateEventsWeek()
     {
         weekEvents.Clear();
 
-        // Genera una lista de eventos y excluye los ua utilizados
         List<EventData> availableEvents = baseEvents
-        .Where(e => !usedEvents.Contains(e))
-        .ToList();
+            .Where(e => !usedEvents.Contains(e))
+            .ToList();
 
-        // Asegura que hayan al menos 3 eventos disponibles o reinicia la lista
         if (availableEvents.Count < 3)
         {
             if (debugMode) Debug.Log("Se han usado todos los eventos, reiniciando lista disponible");
@@ -134,8 +116,6 @@ public class GameManager : MonoBehaviour
         List<int> diasDisponibles = new List<int>() { 2, 3, 4, 5, 6, 7 };
         List<EventData> eventosDisponibles = new List<EventData>(availableEvents);
 
-        // Asigna 3 eventos aleatorios a la semana
-        // Sugerencia de optimización por ChatGPT
         for (int i = 0; i < EventsPerWeek && eventosDisponibles.Count > 0 && diasDisponibles.Count > 0; i++)
         {
             EventData evento = eventosDisponibles[Random.Range(0, eventosDisponibles.Count)];
@@ -147,94 +127,69 @@ public class GameManager : MonoBehaviour
             diasDisponibles.Remove(dia);
         }
 
-        // for (int i = 0; i < EventsPerWeek; i++)
-        // {
-        //     if (eventosDisponibles.Count == 0 || diasDisponibles.Count == 0)
-        //         break;
-
-        //     int eventoIndex = Random.Range(0, eventosDisponibles.Count);
-        //     int diaIndex = Random.Range(0, diasDisponibles.Count);
-
-        //     EventData evento = eventosDisponibles[eventoIndex];
-        //     int dia = diasDisponibles[diaIndex];
-
-        //     weekEvents.Add(dia, evento);
-        //     usedEvents.Add(evento);
-
-        //     eventosDisponibles.RemoveAt(eventoIndex);
-        //     diasDisponibles.RemoveAt(diaIndex);
-        // }
-
         UpdateEventsDebug();
     }
 
-    // Pasar al siguiente día
     public void NextDay()
     {
-        CurrentDay++;
+        if (!canProceedToNextDay || isGameOver) return;
 
-        // Muestra el evento en el UI y en la consola
-        if (weekEvents.ContainsKey(CurrentDay))
+        currentDay++;
+
+        if (weekEvents.ContainsKey(currentDay))
         {
-            var evento = weekEvents[CurrentDay];
+            var evento = weekEvents[currentDay];
             Debug.Log($"Evento de hoy: {evento.descripcion}");
 
             canProceedToNextDay = false;
-            uiManager.ShowEvent(evento);
+            GameMainScene.canvasManager.ShowEvent(evento);
+
+            currentLesson++;
+
+            GameMainScene.canvasManager.UpdateTextsForTime(currentWeek, currentDay, daysPerWeek, currentLesson);
+
         }
         else
         {
             Debug.Log("Día tranquilo, sin eventos.");
-            uiManager.ShowEventPanel();
-            uiManager.ShowNoEventMessage();
+            GameMainScene.canvasManager.ShowPanel(GameMainScene.canvasManager.eventPanel);
+            GameMainScene.canvasManager.ShowNoEventMessage();
         }
 
-        // Si se pasa de 7 → nueva semana
-        if (CurrentDay > DaysPerWeek)
+        if (currentDay > daysPerWeek)
         {
             NextWeek();
-            CurrentDay = 1;
+            currentDay = 1;
         }
-
-        ShowState();
     }
 
     private void NextWeek()
     {
-        CurrentWeek++;
+        currentWeek++;
+        currentLesson = 0;
 
-        if (CurrentWeek > 4)
+        if (currentWeek > 4)
         {
             FinishMonth();
         }
 
         GenerateEventsWeek();
-        Debug.Log($"Semana {CurrentWeek} iniciada con {EventsPerWeek} eventos nuevos.");
+        Debug.Log($"Semana {currentWeek} iniciada con {EventsPerWeek} eventos nuevos.");
     }
 
-    // Muestra el estado actual del jugador en la consola
-    private void ShowState()
-    {
-        if (debugMode) Debug.Log($"Dinero: {CurrentMoney} | Moral: {CurrentMoral} |  Deuda: {CurrentDebt}");
-        if (debugMode) Debug.Log($" Mes {CurrentMonth}, Semana {CurrentWeek}, Día {CurrentDay}");
-    }
-
-    // Avanza al siguiente mes y el jugador cobra su sueldo
     private void FinishMonth()
     {
-        //logica de avanzar a la siguiente zona
-        CurrentMoney += CurrentMonthlySalary;
-        CurrentWeek = 1;
-        CurrentMonth++;
-        Debug.Log($" Nuevo mes: {CurrentMonth}");
+        currentMoney += currentMonthlySalary;
+        currentWeek = 1;
+        currentMonth++;
+        Debug.Log($" Nuevo mes: {currentMonth}");
     }
 
-    // Controla la toma de decisiones del jugador
     public void ApplyDecision(DecisionOption decision)
     {
-        CurrentMoney += decision.cambioDinero;
-        CurrentMoral += decision.cambioMoral;
-        CurrentDebt += decision.cambioDeuda;
+        currentMoney += decision.cambioDinero;
+        currentMoral += decision.cambioMoral;
+        currentDebt += decision.cambioDeuda;
 
         switch (decision.typeDecision)
         {
@@ -249,22 +204,21 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        Debug.Log($"Nuevo estado → Dinero: {CurrentMoney}, Moral: {CurrentMoral}, Deuda: {CurrentDebt}");
+        Debug.Log($"Nuevo estado → Dinero: {currentMoney}, Moral: {currentMoral}, Deuda: {currentDebt}");
 
-        // Condiciones para terminarl el juego (y mostrar el menú para comenzar nuevamente)
-        if (CurrentMoral < 0)
+        if (currentMoral < 0)
         {
             EndGame("La moral del jugador llegó a cero.");
             return;
         }
 
-        if (CurrentMoney <= 0)
+        if (currentMoney <= 0)
         {
             EndGame("El jugador se quedó sin dinero.");
             return;
         }
 
-        if (CurrentDebt > CurrentMonthlySalary)
+        if (currentDebt > currentMonthlySalary)
         {
             EndGame("La deuda del jugador superó su salario.");
             return;
@@ -272,8 +226,8 @@ public class GameManager : MonoBehaviour
 
         canProceedToNextDay = true;
 
-        uiManager.UpdateStats();
-        uiManager.HideEventPanel();
+        GameMainScene.canvasManager.UpdateStats();
+        GameMainScene.canvasManager.HidePanel(GameMainScene.canvasManager.eventPanel);
     }
 
     public void UpdateEventsDebug()
@@ -285,13 +239,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Termina el juego
     private void EndGame(string reason)
     {
         isGameOver = true;
         canProceedToNextDay = false;
         Debug.Log($"Juego terminado: {reason}");
-        uiManager.ShowGameOver(reason);
+        GameMainScene.canvasManager.ShowGameOver(reason);
     }
 
     public void RestartGame()
@@ -302,14 +255,11 @@ public class GameManager : MonoBehaviour
         canProceedToNextDay = true;
 
         InitPlayer();
-        CurrentDay = 1;
+        currentDay = 1;
         GenerateEventsWeek();
 
-        uiManager.HideEventPanel();
-        uiManager.gameOverPanel.SetActive(false);
-        uiManager.UpdateStats();
-        uiManager.ShowNoEventMessage();
-
-        ShowState();
+        GameMainScene.canvasManager.HideAllPanels(); 
+        GameMainScene.canvasManager.UpdateStats();
+        GameMainScene.canvasManager.ShowNoEventMessage();
     }
 }

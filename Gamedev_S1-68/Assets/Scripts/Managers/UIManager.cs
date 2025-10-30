@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
   [Header("Referencias")]
-  public GameManager gameManager;
+  [SerializeField, ReadOnly] internal GameManager gameManager;
 
   [Header("Valores")]
   [SerializeField] internal TextMeshProUGUI dineroText;
@@ -35,11 +35,6 @@ public class UIManager : MonoBehaviour
 
   [Header("Game Over Controls")]
   [SerializeField] internal Button restartButton;
-
-  void Start()
-  {
-
-  }
 
   public void InitUI()
   {
@@ -95,9 +90,9 @@ public class UIManager : MonoBehaviour
   // Actualiza los recursos del jugador después de cada decisión
   public void UpdateStats()
   {
-    dineroText.text = $"{gameManager.CurrentMoney}";
-    moralText.text = $"{gameManager.CurrentMoral}";
-    deudaText.text = $"{gameManager.CurrentDebt}";
+    dineroText.text = $"{gameManager.currentMoney}";
+    moralText.text = $"{gameManager.currentMoral}";
+    deudaText.text = $"{gameManager.currentDebt}";
   }
 
   // Esconde el panel de eventos
