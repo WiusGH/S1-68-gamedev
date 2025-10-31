@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     [SeparatorDown]
 
     [SubHeader("Time Control")]
-    [SerializeField, ReadOnly] internal int currentDay = 1;
     [SerializeField] internal int daysPerWeek = 7;
     [SerializeField] internal int EventsPerWeek = 3;
 
@@ -62,8 +61,11 @@ public class GameManager : MonoBehaviour
     [SerializeField, ReadOnly] internal int currentDebt;
     [SerializeField, ReadOnly] internal int currentMoral;
     [SerializeField, ReadOnly] internal int currentMonthlySalary;
+
     [SerializeField, ReadOnly] internal int currentWeek;
     [SerializeField, ReadOnly] internal int currentMonth;
+    [SerializeField, ReadOnly] internal int currentDay = 0;
+
     [SerializeField, ReadOnly] internal int currentLesson = 0;
 
     [SerializeField, ReadOnly] internal Neighborhoods Currentneighborhood;
@@ -95,7 +97,6 @@ public class GameManager : MonoBehaviour
         currentMonth = InitialMonth;
         Currentneighborhood = Startneighborhood;
 
-        if (debugMode) Debug.Log("Jugador inicializado correctamente.");
     }
 
     private void GenerateEventsWeek()
@@ -108,7 +109,6 @@ public class GameManager : MonoBehaviour
 
         if (availableEvents.Count < 3)
         {
-            if (debugMode) Debug.Log("Se han usado todos los eventos, reiniciando lista disponible");
             usedEvents.Clear();
             availableEvents = new List<EventData>(baseEvents);
         }
@@ -136,13 +136,17 @@ public class GameManager : MonoBehaviour
 
         currentDay++;
 
+        if (currentDay > daysPerWeek)
+        {
+            NextWeek();
+        }
+
         if (weekEvents.ContainsKey(currentDay))
         {
             var evento = weekEvents[currentDay];
-            Debug.Log($"Evento de hoy: {evento.descripcion}");
 
             canProceedToNextDay = false;
-            GameMainScene.canvasManager.ShowEvent(evento);
+            GameMainScene.canvasManager.SetDecisionButtons(evento);
 
             currentLesson++;
 
@@ -151,15 +155,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Día tranquilo, sin eventos.");
-            GameMainScene.canvasManager.ShowPanel(GameMainScene.canvasManager.eventPanel);
             GameMainScene.canvasManager.ShowNoEventMessage();
-        }
-
-        if (currentDay > daysPerWeek)
-        {
-            NextWeek();
-            currentDay = 1;
+            GameMainScene.canvasManager.UpdateTextsForTime(currentWeek, currentDay, daysPerWeek, currentLesson);
         }
     }
 
@@ -167,6 +164,7 @@ public class GameManager : MonoBehaviour
     {
         currentWeek++;
         currentLesson = 0;
+        currentDay = 1;
 
         if (currentWeek > 4)
         {
@@ -174,7 +172,8 @@ public class GameManager : MonoBehaviour
         }
 
         GenerateEventsWeek();
-        Debug.Log($"Semana {currentWeek} iniciada con {EventsPerWeek} eventos nuevos.");
+        GameMainScene.canvasManager.UpdateTextsForTime(currentWeek, currentDay, daysPerWeek, currentLesson);
+
     }
 
     private void FinishMonth()
@@ -194,17 +193,12 @@ public class GameManager : MonoBehaviour
         switch (decision.typeDecision)
         {
             case DecisionType.Aceptar:
-                Debug.Log("El jugador aceptó la propuesta.");
                 break;
             case DecisionType.Rechazar:
-                Debug.Log("El jugador rechazó la propuesta.");
                 break;
             case DecisionType.Negociar:
-                Debug.Log("El jugador intentó negociar.");
                 break;
         }
-
-        Debug.Log($"Nuevo estado → Dinero: {currentMoney}, Moral: {currentMoral}, Deuda: {currentDebt}");
 
         if (currentMoral < 0)
         {
@@ -227,7 +221,7 @@ public class GameManager : MonoBehaviour
         canProceedToNextDay = true;
 
         GameMainScene.canvasManager.UpdateStats();
-        GameMainScene.canvasManager.HidePanel(GameMainScene.canvasManager.eventPanel);
+        GameMainScene.canvasManager.HidePanel(GameMainScene.canvasManager.decisionPanel);
     }
 
     public void UpdateEventsDebug()
@@ -243,14 +237,11 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = true;
         canProceedToNextDay = false;
-        Debug.Log($"Juego terminado: {reason}");
         GameMainScene.canvasManager.ShowGameOver(reason);
     }
 
     public void RestartGame()
     {
-        Debug.Log("Reiniciando el juego...");
-
         isGameOver = false;
         canProceedToNextDay = true;
 

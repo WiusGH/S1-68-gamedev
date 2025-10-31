@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   descripcion: "Tu heladera est\xE1 vac\xEDa, pero tambi\xE9n necesitas dinero para
     ir al trabajo. "
+  eventType: 
+  eventIcon: {fileID: 21300000, guid: feb20667f87356b43bbab2e38a914521, type: 3}
   decisiones:
   - DecisionOption:
       typeDecision: 0

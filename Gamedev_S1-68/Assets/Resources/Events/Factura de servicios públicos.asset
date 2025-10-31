@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   descripcion: "Recibes la factura de luz y agua: en total son 200 cr\xE9ditos. Si
     no pagas ahora, podr\xEDan aplicarse recargos en la siguiente factura."
+  eventType: 
+  eventIcon: {fileID: 21300000, guid: feb20667f87356b43bbab2e38a914521, type: 3}
   decisiones:
   - DecisionOption:
       typeDecision: 0

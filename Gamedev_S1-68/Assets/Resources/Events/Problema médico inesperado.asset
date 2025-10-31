@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: "Problema m\xE9dico inesperado"
   m_EditorClassIdentifier: 
   descripcion: "Te enfermas y debes decidir si ir al m\xE9dico o automedicarte."
+  eventType: 
+  eventIcon: {fileID: 21300000, guid: feb20667f87356b43bbab2e38a914521, type: 3}
   decisiones:
   - DecisionOption:
       typeDecision: 0
