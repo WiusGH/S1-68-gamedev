@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public abstract class ButtonBase : MonoBehaviour
 {
     [SubHeader("ButtonBase")]
     [SerializeField] internal Button m_mainBtn;
+    [SerializeField] internal TextMeshProUGUI textBtn;
 
     public void InitButton(UnityAction btnEvent)
     {

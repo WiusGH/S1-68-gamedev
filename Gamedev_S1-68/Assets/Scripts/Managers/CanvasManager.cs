@@ -3,25 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
+
+[System.Serializable]
+public class FeedbackUI
+{
+    public TextMeshProUGUI descriptionText;
+    public TextMeshProUGUI moneyChangeText;
+    public TextMeshProUGUI moraleChangeText;
+    public TextMeshProUGUI debtChangeText;
+}
 
 public class CanvasManager : MonoBehaviour
 {
     [SubHeader("References")]
     [SerializeField, ReadOnly] internal GameManager gameManager;
+    [SerializeField] internal DoTweenManager doTweenManager;
 
     [SubHeader("Panels")]
-    [SerializeField] internal GameObject eventPanel;
     [SerializeField] internal GameObject feedbackPanel;
     [SerializeField] internal GameObject gameOverPanel;
+    [SerializeField] internal GameObject decisionPanel;
 
     [SubHeader("Texts")]
     [SerializeField] internal TextMeshProUGUI eventDescriptionText;
-
-    [SerializeField] internal TextMeshProUGUI feedbackText;
-    [SerializeField] internal TextMeshProUGUI feedbackStatMoney;
-    [SerializeField] internal TextMeshProUGUI feedbackStatMorale;
-    [SerializeField] internal TextMeshProUGUI feedbackStatDebt;
+    [SerializeField] internal TextMeshProUGUI typeEventText;
 
     [SerializeField] internal TextMeshProUGUI moneyStatText;
     [SerializeField] internal TextMeshProUGUI moraleStatText;
@@ -34,17 +41,21 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] internal TextMeshProUGUI lessonText;
 
     [SerializeField] internal TextMeshProUGUI neighborhoodText;
+    [SerializeField] internal TextMeshProUGUI nextDayBtnText;
+
+    [SerializeField] internal FeedbackUI feedbackPanelTexts;
 
     [SubHeader("Buttons")]
-    [SerializeField] private Button aceptarButton = default;
-    [SerializeField] private Button rechazarButton = default;
-    [SerializeField] private Button negociarButton = default;
+    [SerializeField] internal GenericButton acceptBtn = default;
+    [SerializeField] internal GenericButton rejectBtn = default;
+    [SerializeField] internal GenericButton negotiateBtn = default;
 
-    [SerializeField] private Button continueButton = default;
-
-    [SerializeField] private Button restartButton = default;
-
+    [SerializeField] internal GenericButton continueButton = default;
+    [SerializeField] internal Button restartButton = default;
     [SerializeField] internal GenericButton nextDayBtn = default;
+
+    [SubHeader("Images")]
+    [SerializeField] internal Image eventIcon;
 
     public static readonly Dictionary<Neighborhoods, string> NeighborhoodNames = new()
     {
@@ -80,46 +91,80 @@ public class CanvasManager : MonoBehaviour
 
     public void HideAllPanels()
     {
-        eventPanel.SetActive(false);
         feedbackPanel.SetActive(false);
         gameOverPanel.SetActive(false);
+        decisionPanel.SetActive(false);
     }
 
-    public void ShowEvent(EventData eventData)
+    public void SetDecisionButtons(EventData eventData)
     {
-        ShowPanel(eventPanel);
-
         eventDescriptionText.text = eventData.descripcion;
-        EnableAllDecisionButtons();
+        typeEventText.text = eventData.eventType;
+        eventIcon.sprite = eventData.eventIcon;
+        eventIcon.enabled = true;
 
-        if (eventData.decisiones.Length > 0)
-        {
-            SetDecisionButton(aceptarButton, eventData.decisiones, DecisionType.Aceptar);
-            SetDecisionButton(rechazarButton, eventData.decisiones, DecisionType.Rechazar);
-            SetDecisionButton(negociarButton, eventData.decisiones, DecisionType.Negociar);
-        }
+        nextDayBtnText.text = "Decidir";
+
+        var aceptar = Array.Find(eventData.decisiones, d => 
+        d.DecisionOption.typeDecision == DecisionType.Aceptar);
+
+        var rechazar = Array.Find(eventData.decisiones, d => 
+        d.DecisionOption.typeDecision == DecisionType.Rechazar);
+
+        var negociar = Array.Find(eventData.decisiones, d =>
+        d.DecisionOption.typeDecision == DecisionType.Negociar);
+
+        SetDecisionButton(acceptBtn, aceptar);
+        SetDecisionButton(rejectBtn, rechazar);
+        SetDecisionButton(negotiateBtn, negociar);
+
+        nextDayBtn.InitButton(() => {
+            doTweenManager.OpenPopup(decisionPanel.transform);
+        } );
     }
 
-    public void SetDecisionButton(Button button, DecisionData[] decisiones, DecisionType type)
-    {
-        var decision = Array.Find(decisiones, d => d.DecisionOption.typeDecision == type);
 
+    private void SetDecisionButton(GenericButton button, DecisionData decision)
+    {
         bool hasDecision = decision != null;
-        button.gameObject.SetActive(hasDecision);
         if (!hasDecision) return;
 
+        button.gameObject.SetActive(hasDecision);
+
         var option = decision.DecisionOption;
-        button.GetComponentInChildren<TextMeshProUGUI>().text = option.titulo;
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => HandleDecision(option));
+
+        List<string> cambios = new();
+
+        if (option.cambioMoral != 0)
+            cambios.Add($"Moral {FormatChange(option.cambioMoral)}");
+
+        if (option.cambioDinero != 0)
+            cambios.Add($"Dinero {FormatChange(option.cambioDinero)}");
+
+        if (option.cambioDeuda != 0)
+            cambios.Add($"Deuda {FormatChange(option.cambioDeuda)}");
+
+        string cambiosTexto = cambios.Count > 0 ? $" ({string.Join(", ", cambios)})" : "";
+
+        button.textBtn.text = $"{option.titulo}{cambiosTexto}";
+
+        button.m_mainBtn.onClick.RemoveAllListeners();
+        button.InitButton(() => HandleDecision(option));
     }
 
     public void HandleDecision(DecisionOption decision)
     {
-        DisableAllDecisionButtons();
         gameManager.ApplyDecision(decision);
         UpdateStats();
+        HidePanel(decisionPanel);
+
         ShowFeedback(decision);
+
+        nextDayBtnText.text = "Siguiente dia";
+        nextDayBtn.m_mainBtn.onClick.RemoveAllListeners();
+        nextDayBtn.InitButton(() => {
+            GameMainScene.gameManager.NextDay();
+        });
     }
 
     public void UpdateStats()
@@ -129,28 +174,34 @@ public class CanvasManager : MonoBehaviour
         debtStatText.text = $"${gameManager.currentDebt}";
     }
 
-    public void ShowPanel(GameObject panel) => panel.SetActive(true);
+    public void ShowPanel(GameObject panel)
+    {
+        panel.SetActive(true);
+        panel.transform.localScale = new Vector3(1, 1, 1);
+    }
+
     public void HidePanel(GameObject panel) => panel.SetActive(false);
 
     public void ShowNoEventMessage()
     {
         eventDescriptionText.text = "No hay eventos el día de hoy.";
+        typeEventText.text = "";
+        eventIcon.sprite = null;
+        eventIcon.enabled = false;
     }
 
     public void ShowFeedback(DecisionOption decision)
     {
-        ShowPanel(feedbackPanel);
+        doTweenManager.OpenPopup(feedbackPanel.transform);
 
-        feedbackText.text = decision.feedback;
-        feedbackStatMoney.text = $"${FormatChange(decision.cambioDinero)}";
-        feedbackStatMorale.text = FormatChange(decision.cambioMoral);
-        feedbackStatDebt.text = FormatChange(decision.cambioDeuda);
+        feedbackPanelTexts.descriptionText.text = decision.feedback;
+        feedbackPanelTexts.moneyChangeText.text = $"${FormatChange(decision.cambioDinero)}";
+        feedbackPanelTexts.moraleChangeText.text = $"{FormatChange(decision.cambioMoral)}%";
+        feedbackPanelTexts.debtChangeText.text = $"${FormatChange(decision.cambioDeuda)}";
 
-        continueButton.onClick.RemoveAllListeners();
-        continueButton.onClick.AddListener(() =>
+        continueButton.InitButton(() =>
         {
             HidePanel(feedbackPanel);
-            HidePanel(eventPanel);
             gameManager.canProceedToNextDay = true;
         });
     }
@@ -158,31 +209,13 @@ public class CanvasManager : MonoBehaviour
     public string FormatChange(int value) =>
         value switch
         {
-            > 0 => $"+{value}",
-            < 0 => value.ToString(),
+            > 0 => $"+ {value}",
+            < 0 => $"{value}",
             _ => "0"
         };
 
-    public void DisableAllDecisionButtons()
-    {
-        SetButtonsInteractable(false);
-    }
-
-    public void EnableAllDecisionButtons()
-    {
-        SetButtonsInteractable(true);
-    }
-
-    public void SetButtonsInteractable(bool state)
-    {
-        aceptarButton.interactable = state;
-        rechazarButton.interactable = state;
-        negociarButton.interactable = state;
-    }
-
     public void ShowGameOver(string reason)
     {
-        HidePanel(eventPanel);
         ShowPanel(gameOverPanel);
 
         gameOverText.text = $"Juego Terminado\n{reason}";

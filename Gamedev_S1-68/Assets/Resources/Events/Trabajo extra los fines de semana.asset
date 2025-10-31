@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Trabajo extra los fines de semana
   m_EditorClassIdentifier: 
   descripcion: "Tu jefe ofrece un turno extra por 150 cr\xE9ditos."
+  eventType: 
+  eventIcon: {fileID: 21300000, guid: feb20667f87356b43bbab2e38a914521, type: 3}
   decisiones:
   - DecisionOption:
       typeDecision: 0

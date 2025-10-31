@@ -7,6 +7,8 @@ public class EventData : ScriptableObject
 {
     [Header("Descripción del evento")]
     [TextArea] public string descripcion;
+    public string eventType;
+    public Sprite eventIcon;
 
     [Header("Descisiones disponibles")]
     public DecisionData[] decisiones;

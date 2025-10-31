@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Fin de mes balance general
   m_EditorClassIdentifier: 
   descripcion: Llega el cierre del mes. El mentor analiza tus decisiones.
+  eventType: 
+  eventIcon: {fileID: 21300000, guid: feb20667f87356b43bbab2e38a914521, type: 3}
   decisiones:
   - DecisionOption:
       typeDecision: 0

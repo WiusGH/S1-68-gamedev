@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class DecisionData
 {
-    [SerializeField] internal DecisionOption DecisionOption;
+    [SerializeField] public DecisionOption DecisionOption;
 }
 
 [System.Serializable]
